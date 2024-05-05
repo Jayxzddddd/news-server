@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smxy.newsserver.dao.PrizeDao">
+    <select id="findAll" resultType="Prize">
+        select * from prize
+    </select>
+
+    <delete id="delById" parameterType="Integer">
+        delete from prize where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="Prize">
+        insert into prize(id,name,url,number)
+        values (#{id},#{name},#{url},#{number})
+    </insert>
+
+    <update id="update" parameterType="Prize">
+        update prize set name = #{name},url = #{url},number = #{number} where id = #{id}
+    </update>
+</mapper>

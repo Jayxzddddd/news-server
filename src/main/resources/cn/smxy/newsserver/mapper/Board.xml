@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smxy.newsserver.dao.BoardDao">
+    <select id="findAll" resultType="MsBoard">
+        select * from msboard
+    </select>
+
+    <insert id="addBoard" parameterType="MsBoard">
+        insert into msboard(maker,message,nowtime) values (#{maker},#{message},now())
+    </insert>
+
+    <delete id="delById" parameterType="Integer">
+        delete from msboard where id = #{id}
+    </delete>
+</mapper>

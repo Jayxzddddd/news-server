@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smxy.newsserver.dao.UserDao">
+    <select id="findAll" resultType="UserInfo">
+        select * from userinfo
+    </select>
+
+    <delete id="delById" parameterType="Integer">
+        delete from userinfo where id=#{id}
+    </delete>
+
+    <insert id="add" parameterType="UserInfo">
+        insert into userinfo(username,password,phone,email,headImage)
+        values (#{username},#{password},#{phone},#{email},#{headImage})
+    </insert>
+
+    <update id="update" parameterType="UserInfo">
+        update userinfo set username = #{username},password = #{password},phone=#{phone},email=#{email} where id = #{id}
+    </update>
+
+
+    <select id="login" parameterType="UserInfo" resultType="UserInfo">
+        select * from userinfo where username=#{username} and password = #{password}
+    </select>
+
+    <select id="findOne" parameterType="UserInfo" resultType="UserInfo">
+        select * from userinfo where username=#{username} or password = #{password}
+    </select>
+
+    <select id="findById" parameterType="Integer" resultType="UserInfo">
+        select * from userinfo where id = #{id}
+    </select>
+</mapper>

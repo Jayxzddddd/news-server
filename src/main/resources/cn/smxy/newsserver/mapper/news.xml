@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smxy.newsserver.dao.NewsDao">
+
+    <resultMap id="newsResultMap" type="News">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="typeId" column="typeId" />
+        <result property="imagePath" column="imagePath" />
+        <result property="publishDate" column="publishDate" />
+        <association property="newsType" column="typeId" select="cn.smxy.newsserver.dao.NewsTypeDao.findById" />
+    </resultMap>
+
+    <select id="findHomeNewsTop3" resultType="News">
+        SELECT * FROM news WHERE typeId=1
+        ORDER BY publishDate DESC
+        LIMIT 0,3
+    </select>
+
+    <select id="findInternationalNewsTop3" resultType="News">
+        SELECT * FROM news WHERE typeId=2
+        ORDER BY publishDate DESC
+            LIMIT 0,3
+    </select>
+
+    <select id="findArmyNewsTop3" resultType="News">
+        SELECT * FROM news WHERE typeId=3
+        ORDER BY publishDate DESC
+            LIMIT 0,3
+    </select>
+
+    <select id="findByTypeId" parameterType="Integer" resultType="News">
+        SELECT * FROM news WHERE typeId = #{typeId}
+        order by publishDate desc
+    </select>
+
+    <select id="findAll" resultMap="newsResultMap">
+        SELECT * FROM news
+    </select>
+
+    <delete id="delNewsById" parameterType="Integer">
+        delete from news where id = #{id}
+    </delete>
+
+    <insert id="addNews" parameterType="News">
+        insert into news(title,content,typeId,imagePath,publishDate) values (#{title},#{content},#{typeId},#{imagePath},now())
+    </insert>
+
+    <update id="updateNews" parameterType="News">
+        update news set title=#{title}, content=#{content}, typeId=#{typeId}, imagePath=#{imagePath}, publishDate=#{publishDate}
+        where id=#{id}
+    </update>
+
+</mapper>
